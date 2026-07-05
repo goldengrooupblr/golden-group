@@ -1,0 +1,423 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+  --accent: #c19b4d;
+  --gold: #ffcf70;
+  --panel-w: 100vw;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --panel-w: 480px;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-satoshi);
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+}
+
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+}
+
+.pill-wipe {
+  transform: translateY(100%);
+}
+
+.pill-hover:hover .pill-wipe {
+  animation: pill-wipe-pass 800ms cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+/* After the gold wipe passes, the revealed base reads as cream (#FBF7EA)
+   instead of pure white, marking the hovered state. */
+.pill-hover:hover {
+  background-color: #fbf7ea;
+}
+
+
+.card-fill {
+  /* Nudge 1px past the edge so the gold fill never peeks as a hairline
+     border at the card's bottom when idle. */
+  transform: translateY(calc(100% + 1px));
+  transition: transform 600ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.card-hover:hover .card-fill,
+.group:hover .card-fill {
+  transform: translateY(0);
+}
+
+/* Underline shows by default; hovering retracts it to the right for feedback. */
+.cta-underline-bar {
+  transform-origin: left center;
+  transform: scaleX(1);
+  transition: transform 500ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.cta-underline:hover .cta-underline-bar {
+  transform-origin: right center;
+  transform: scaleX(0);
+}
+
+@keyframes pill-wipe-pass {
+  0% {
+    transform: translateY(100%);
+  }
+  37.5% {
+    transform: translateY(0%);
+  }
+  62.5% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 900ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 900ms cubic-bezier(0.32, 0.72, 0, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hero-expand {
+  animation: hero-expand 1500ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+@keyframes hero-expand {
+  0% {
+    transform: scale(1.18);
+    filter: brightness(0.55);
+    clip-path: inset(8% round 24px);
+  }
+  60% {
+    filter: brightness(0.85);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+    clip-path: inset(0% round 0px);
+  }
+}
+
+.nav-enter {
+  animation: nav-enter 700ms cubic-bezier(0.32, 0.72, 0, 1) both;
+  animation-delay: 120ms;
+}
+@keyframes nav-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-rise {
+  animation: hero-rise 900ms cubic-bezier(0.32, 0.72, 0, 1) both;
+  animation-delay: var(--hero-rise-delay, 0ms);
+}
+@keyframes hero-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.marquee-track {
+  animation: marquee 38s linear infinite;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollhint {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(4px);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.is-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-expand {
+    animation: none;
+  }
+  .nav-enter,
+  .hero-rise {
+    animation: none;
+  }
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* MinimalMap (MapLibre GL) */
+.golden-main-pin {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  background: #c19b4d;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.7), 0 6px 14px rgba(0, 0, 0, 0.45);
+  z-index: 4;
+}
+.golden-main-pin__inner {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+}
+.golden-main-pin__inner svg {
+  display: block;
+}
+.golden-main-pin__label {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 10px;
+  background: #c19b4d;
+  color: #0a0a0a;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.7), 0 6px 14px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
+.golden-main-pin__label::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-bottom-color: #c19b4d;
+}
+
+/* Header logo gold tint on hover */
+.logo-link img {
+  transition: filter 300ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+.logo-link:hover img {
+  /* Match the button/accent gold #c19b4d exactly (solver loss 0.06). */
+  filter: brightness(0) saturate(100%) invert(70%) sepia(15%) saturate(1386%)
+    hue-rotate(2deg) brightness(87%) contrast(91%);
+}
+.golden-landmark {
+  position: relative;
+  display: inline-flex;
+  width: max-content;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 13px 0 5px;
+  background: rgba(12, 12, 12, 0.82);
+  border: 1px solid #3a3a3a;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+.golden-landmark:hover {
+  background: rgba(28, 28, 28, 0.92);
+  border-color: #c19b4d;
+  transform: scale(1.05);
+  z-index: 5;
+}
+.golden-landmark--active {
+  background: #c19b4d;
+  border-color: #c19b4d;
+  z-index: 6;
+}
+/* Keep the gold fill (and dark text) on hover while selected — otherwise the
+   generic :hover turns the bg dark and the dark active label vanishes. */
+.golden-landmark--active:hover {
+  background: #d6b25e;
+  border-color: #d6b25e;
+}
+.golden-landmark--active .golden-landmark__name {
+  color: #0a0a0a;
+}
+.golden-landmark--active .golden-landmark__icon {
+  background: rgba(10, 10, 10, 0.85);
+}
+.golden-landmark__icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: rgba(193, 155, 77, 0.16);
+}
+.golden-landmark__icon svg {
+  display: block;
+}
+.golden-landmark__name {
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #f2f2f2;
+  white-space: nowrap;
+}
+.golden-landmark__pop {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translate(-50%, 4px);
+  padding: 5px 10px;
+  background: rgba(15, 15, 15, 0.95);
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 140ms ease, transform 140ms ease;
+  white-space: nowrap;
+  z-index: 6;
+}
+.golden-landmark__pop::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(15, 15, 15, 0.95);
+}
+.golden-landmark:hover .golden-landmark__pop {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Map overlay tabs */
+.golden-map-tabs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.golden-map-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: 270px;
+  padding: 20px 16px;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 400;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid #464646;
+  cursor: pointer;
+  text-align: left;
+  transition: background 140ms ease, color 140ms ease;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.golden-map-tab + .golden-map-tab {
+  margin-top: -1px;
+}
+.golden-map-tab:hover:not([data-active="true"]) {
+  background: rgba(0, 0, 0, 0.65);
+}
+.golden-map-tab[data-active="true"] {
+  color: #000000;
+  background: #ffffff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  z-index: 1;
+}
+.golden-map-tab__icon {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+@media (max-width: 640px) {
+  .golden-map-tab {
+    width: 200px;
+    padding: 14px 12px;
+    font-size: 14px;
+  }
+  .golden-map-tab__icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+.maplibregl-ctrl-attrib {
+  background: rgba(0, 0, 0, 0.55) !important;
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+.maplibregl-ctrl-attrib a {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+.maplibregl-canvas {
+  outline: none;
+}
