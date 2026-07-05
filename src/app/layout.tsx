@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
+import localFont from "next/font/local";
 import SiteShell from "@/components/SiteShell";
 import SmoothScroll from "@/components/SmoothScroll";
 import ProjectTransitionOverlay from "@/components/ProjectTransitionOverlay";
