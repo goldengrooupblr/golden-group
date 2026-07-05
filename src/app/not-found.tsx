@@ -2,9 +2,10 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Page Not Found | Golden Group",
+  title: "Page Not Found",
   description:
-    "The page you are looking for does not exist. Explore Golden Group's residential and commercial projects across Gujarat.",
+    "The page you are looking for does not exist. Explore Golden Group India's residential and commercial projects across Gujarat.",
+  robots: { index: false, follow: false },
 };
 
 export default function NotFound() {

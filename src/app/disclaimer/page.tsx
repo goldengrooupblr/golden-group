@@ -5,11 +5,14 @@ import {
   P,
 } from "@/components/LegalPage";
 
-export const metadata = {
-  title: "Disclaimer | Golden Group",
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Disclaimer",
   description:
-    "Disclaimer for the Golden Group website. Project visuals, plans and specifications are representational and subject to variation during execution.",
-};
+    "Disclaimer for the Golden Group India website. Project visuals, plans and specifications are representational and subject to variation during execution.",
+  path: "/disclaimer",
+});
 
 export default function DisclaimerPage() {
   return (

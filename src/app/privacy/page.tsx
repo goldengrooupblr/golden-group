@@ -7,11 +7,14 @@ import {
   UL,
 } from "@/components/LegalPage";
 
-export const metadata = {
-  title: "Privacy Policy | Golden Group",
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Privacy Policy",
   description:
-    "How Golden Lifespace Developers LLP collects, uses and protects personal information shared via the Golden Group website and project enquiries.",
-};
+    "How Golden Lifespace Developers LLP collects, uses and protects personal information shared via the Golden Group India website and project enquiries.",
+  path: "/privacy",
+});
 
 export default function PrivacyPolicyPage() {
   return (

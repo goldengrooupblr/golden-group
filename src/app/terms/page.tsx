@@ -7,11 +7,14 @@ import {
   UL,
 } from "@/components/LegalPage";
 
-export const metadata = {
-  title: "Terms & Conditions | Golden Group",
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Terms & Conditions",
   description:
-    "Terms and conditions for using the Golden Group website, owned and operated by Golden Lifespace Developers LLP. Covers acceptable use, project information and applicable RERA jurisdictions.",
-};
+    "Terms and conditions for using the Golden Group India website, owned and operated by Golden Lifespace Developers LLP. Covers acceptable use, project information and applicable RERA jurisdictions.",
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (
