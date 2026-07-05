@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import localFont from "next/font/local";
 import SiteShell from "@/components/SiteShell";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -49,6 +50,7 @@ export default function RootLayout({
         {process.env.NODE_ENV === "development" &&
           process.env.NEXT_PUBLIC_ENABLE_AGENTATION !== "false" && <Agentation />}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
