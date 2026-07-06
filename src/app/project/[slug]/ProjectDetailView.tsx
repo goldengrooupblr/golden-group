@@ -361,14 +361,18 @@ function ProjectFacts({ project }: { project: Project }) {
   const mdColsClass = total === 4 ? "md:grid-cols-4" : "md:grid-cols-3";
   // Rows separate via each lower cell's border-t; a border-b would double it.
   // Only the cell sitting above an empty slot (odd count) needs its own line.
+  // Column dividers are border-l on the right-hand cell — the sitewide
+  // convention — so stacked sections' centre lines land on the same pixel.
   const cellClass = (i: number) =>
     `flex flex-col gap-3 border-t border-[#464646] px-[30px] py-10 md:py-14 ${
-      i < total - 1 ? "md:border-r md:border-[#464646]" : ""
+      i > 0 ? "md:border-l md:border-[#464646]" : ""
     } ${
       total % 2 === 1 && i === total - 2 ? "border-b border-[#464646] md:border-b-0" : ""
-    } ${i % 2 === 0 && i + 1 < total ? "border-r border-[#464646]" : ""}`;
+    } ${i % 2 === 1 ? "border-l border-[#464646]" : ""}`;
   return (
-    <section className="border-t border-[#464646] bg-black">
+    // No border-t on the section: every cell already draws its own border-t
+    // (rows separate that way), so a section-level line would double it to 2px.
+    <section className="bg-black">
       <dl className={`grid grid-cols-2 ${mdColsClass}`}>
         {facts.map((f, i) => (
           <Reveal
@@ -1296,7 +1300,9 @@ function Pillars({ project }: { project: Project }) {
           <Reveal
             key={p.id}
             delay={i * 100}
-            className="border-b border-[#464646] [&:nth-last-child(-n+1)]:border-b-0 sm:border-r sm:[&:nth-child(2n)]:border-r-0 sm:[&:nth-last-child(-n+2)]:border-b-0 md:[&:nth-child(2n)]:border-r md:[&:nth-child(4n)]:border-r-0 md:[&:nth-last-child(-n+4)]:border-b-0"
+            className={`border-b border-[#464646] [&:nth-last-child(-n+1)]:border-b-0 sm:[&:nth-last-child(-n+2)]:border-b-0 md:[&:nth-last-child(-n+4)]:border-b-0 ${
+              i % 2 === 1 ? "sm:border-l sm:border-[#464646]" : ""
+            } ${i % 4 !== 0 ? "md:border-l md:border-[#464646]" : ""}`}
           >
             <div className="flex h-full flex-col gap-6 p-10 md:p-14">
               <PillarIcon pillar={p} />

@@ -1292,7 +1292,7 @@
       "type": "commercial-industrial",
       "category": "150 Shops & 102 Offices",
       "location": "Bharuch",
-      "area": "Multi-level commercial",
+      "area": "62 - 1611 Sq. Ft.",
       "status": "Completed",
       "images": [
         {
@@ -3280,7 +3280,7 @@
       "type": "commercial-industrial",
       "category": "Commercial Shops & Offices",
       "location": "Ankleshwar",
-      "area": "1,00,000 Sq. Ft.",
+      "area": "2,50,000 Sq. Ft.",
       "areaLabel": "Built-up Area",
       "status": "Completed",
       "images": [
@@ -3341,7 +3341,7 @@
             },
             {
               "src": "golden-square/Interior_Mall_Retail_Floor.webp",
-              "metric": "1,00,000 Sq.Ft.",
+              "metric": "2,50,000 Sq.Ft.",
               "label": "Built-up Area"
             }
           ]

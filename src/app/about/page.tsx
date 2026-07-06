@@ -691,7 +691,7 @@ function Statement({
   if (!imageSrc) {
     return (
       <section className="border-t border-[#464646] bg-black">
-        <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] md:[&>*:first-child]:border-r md:[&>*:first-child]:border-[#464646]">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] md:[&>*:last-child]:border-l md:[&>*:last-child]:border-[#464646]">
           <div aria-hidden className="hidden md:block" />
           {text}
         </div>
@@ -701,7 +701,7 @@ function Statement({
 
   return (
     <section className="border-t border-[#464646] bg-black">
-      <div className="grid grid-cols-1 md:grid-cols-2 md:[&>*:first-child]:border-r md:[&>*:first-child]:border-[#464646]">
+      <div className="grid grid-cols-1 md:grid-cols-2 md:[&>*:last-child]:border-l md:[&>*:last-child]:border-[#464646]">
         {imageAlign === "left" ? (
           <>
             {imageSlot}
@@ -762,17 +762,15 @@ function WhyChooseUs() {
             i < items.length - 1
               ? "border-b border-[#464646] lg:border-b-0"
               : "";
-          const smRight =
-            i % 2 === 0 ? "sm:border-r sm:border-[#464646]" : "sm:border-r-0";
-          const lgRight =
-            i < items.length - 1
-              ? "lg:border-r lg:border-[#464646]"
-              : "lg:border-r-0";
+          const smLeft =
+            i % 2 === 1 ? "sm:border-l sm:border-[#464646]" : "";
+          const lgLeft =
+            i > 0 ? "lg:border-l lg:border-[#464646]" : "lg:border-l-0";
           return (
             <Reveal
               key={title}
               delay={120 + i * 120}
-              className={`flex flex-col gap-6 px-[30px] py-10 md:px-8 md:py-12 ${mobileBorder} ${smRight} ${lgRight}`}
+              className={`flex flex-col gap-6 px-[30px] py-10 md:px-8 md:py-12 ${mobileBorder} ${smLeft} ${lgLeft}`}
             >
               <Icon
                 size={48}
@@ -841,15 +839,15 @@ function Milestones() {
           {stats.map((s, i) => {
             const mobileBorder =
               i < stats.length - 1 ? "border-b border-[#464646]" : "";
-            const desktopRight =
-              i % 2 === 0 ? "sm:border-r sm:border-[#464646]" : "sm:border-r-0";
+            const desktopLeft =
+              i % 2 === 1 ? "sm:border-l sm:border-[#464646]" : "";
             const desktopBottom =
               i < 2 ? "sm:border-b sm:border-[#464646]" : "sm:border-b-0";
             return (
               <Reveal
                 key={s.label}
                 delay={120 + i * 120}
-                className={`flex aspect-[458/240] flex-col items-center justify-center gap-2 sm:aspect-[458/220] sm:gap-3 ${mobileBorder} ${desktopRight} ${desktopBottom}`}
+                className={`flex aspect-[458/240] flex-col items-center justify-center gap-2 sm:aspect-[458/220] sm:gap-3 ${mobileBorder} ${desktopLeft} ${desktopBottom}`}
               >
                 <CountUp
                   value={s.value}

@@ -51,46 +51,63 @@ function ContactSection() {
         </h1>
       </div>
 
-      <div className="mx-auto w-full max-w-[760px] px-[30px]">
+      {/* Mobile: the two forms share the viewport behind tabs. */}
+      <div className="md:hidden">
+        <div className="mx-auto w-full max-w-[760px] px-[30px]">
+          <div
+            role="tablist"
+            aria-label="Contact forms"
+            className="flex w-full border border-[#464646]"
+          >
+            {TABS.map((t) => {
+            const active = t.id === tab;
+            return (
+              <button
+                key={t.id}
+                type="button"
+                role="tab"
+                id={`tab-${t.id}`}
+                aria-selected={active}
+                aria-controls={`panel-${t.id}`}
+                tabIndex={active ? 0 : -1}
+                onClick={() => setTab(t.id)}
+                onKeyDown={onTabKeyDown}
+                className={`-ml-px h-[56px] flex-1 border-l border-[#464646] px-3 text-center text-[13px] uppercase tracking-[0.08em] transition-colors duration-300 first:ml-0 first:border-l-0 ${
+                  active
+                    ? "z-10 bg-white text-black"
+                    : "bg-transparent text-white/80 hover:bg-white/5"
+                }`}
+              >
+                {t.label}
+              </button>
+            );
+            })}
+          </div>
+        </div>
+
         <div
-          role="tablist"
-          aria-label="Contact forms"
-          className="flex w-full border border-[#464646]"
+          role="tabpanel"
+          id={`panel-${tab}`}
+          aria-labelledby={`tab-${tab}`}
+          className="border-b border-[#464646]"
         >
-          {TABS.map((t) => {
-          const active = t.id === tab;
-          return (
-            <button
-              key={t.id}
-              type="button"
-              role="tab"
-              id={`tab-${t.id}`}
-              aria-selected={active}
-              aria-controls={`panel-${t.id}`}
-              tabIndex={active ? 0 : -1}
-              onClick={() => setTab(t.id)}
-              onKeyDown={onTabKeyDown}
-              className={`-ml-px h-[56px] flex-1 border-l border-[#464646] px-3 text-center text-[13px] uppercase tracking-[0.08em] transition-colors duration-300 first:ml-0 first:border-l-0 ${
-                active
-                  ? "z-10 bg-white text-black"
-                  : "bg-transparent text-white/80 hover:bg-white/5"
-              }`}
-            >
-              {t.label}
-            </button>
-          );
-          })}
+          <div className="mx-auto w-full max-w-[760px]">
+            {tab === "inquire" ? <ContactForm /> : <CareersForm />}
+          </div>
         </div>
       </div>
 
-      <div
-        role="tabpanel"
-        id={`panel-${tab}`}
-        aria-labelledby={`tab-${tab}`}
-        className="border-b border-[#464646]"
-      >
-        <div className="mx-auto w-full max-w-[760px]">
-          {tab === "inquire" ? <ContactForm /> : <CareersForm />}
+      {/* Desktop: no tabs — Get in touch on top, Careers below it. */}
+      <div className="hidden md:block">
+        <div className="border-b border-[#464646]">
+          <div className="mx-auto w-full max-w-[760px]">
+            <ContactForm />
+          </div>
+        </div>
+        <div className="border-b border-[#464646]">
+          <div className="mx-auto w-full max-w-[760px]">
+            <CareersForm />
+          </div>
         </div>
       </div>
 
