@@ -136,7 +136,7 @@ function Hero({
           ? "min-h-[60svh] md:min-h-[40svh]"
           : heroAspect
           ? fullBleed
-            ? "h-[80svh] md:h-auto md:min-h-[100svh]"
+            ? "h-[100svh] md:h-auto md:min-h-[100svh]"
             : "min-h-[50svh] md:min-h-[100svh]"
           : "h-[80svh] md:h-[200vh] md:min-h-[1280px]"
       }`}

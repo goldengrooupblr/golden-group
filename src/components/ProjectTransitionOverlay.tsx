@@ -35,7 +35,7 @@ export default function ProjectTransitionOverlay() {
 
   // Expand to the detail hero's actual box so the overlay hands off without
   // a jump. md+ is always full screen from the top; on mobile, full-bleed
-  // pages end at 80svh from the top while the rest sit below the 80px navbar
+  // pages fill 100svh from the top while the rest sit below the 80px navbar
   // at max(50svh, natural image height).
   const isMd =
     typeof window !== "undefined" &&
@@ -45,7 +45,7 @@ export default function ProjectTransitionOverlay() {
   const heroHeight = isMd
     ? "100vh"
     : fullBleed
-      ? "80svh"
+      ? "100svh"
       : heroAspect
         ? `max(50svh, calc(100vw / ${heroAspect}))`
         : "80svh";
