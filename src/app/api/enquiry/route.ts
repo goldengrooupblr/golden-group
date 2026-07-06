@@ -1,14 +1,17 @@
 import { Resend } from "resend";
 
-// Where enquiries land. From-address must be on a Resend-verified domain —
-// until goldengroupblr.com DNS is verified, Resend only delivers to the
-// account owner's own email, so both are overridable per environment.
+// Where enquiries land. From-address must be on a Resend-verified domain;
+// RESEND_EMAIL_DOMAIN is provisioned by the Vercel Resend integration
+// (goldengroupindia.com). Until its DNS records are verified, Resend only
+// delivers to the account owner's own email, so all are overridable per
+// environment.
 const TO_EMAIL = process.env.ENQUIRY_TO_EMAIL ?? "Sales@goldengroupblr.com";
 const CAREERS_TO_EMAIL =
   process.env.CAREERS_TO_EMAIL ?? "Careers@goldengroupblr.com";
+const SEND_DOMAIN = process.env.RESEND_EMAIL_DOMAIN ?? "goldengroupindia.com";
 const FROM_EMAIL =
   process.env.ENQUIRY_FROM_EMAIL ??
-  "Golden Group Website <enquiry@goldengroupblr.com>";
+  `Golden Group Website <enquiry@${SEND_DOMAIN}>`;
 
 // Keep resumes under Vercel's ~4.5MB request body limit.
 const MAX_RESUME_BYTES = 4 * 1024 * 1024;
