@@ -165,7 +165,7 @@
                     "Foyer, store and two bathrooms."
                   ],
                   "image": {
-                    "src": "golden-luxuria/2bhk_typical_unit.png"
+                    "src": "golden-luxuria/2bhk_typical_unit.webp"
                   },
                   "note": "*Final dimensions may vary on site."
                 }
@@ -1408,8 +1408,8 @@
           "body": "Retail & Office Floor Plans.",
           "groups": [
             {
-              "id": "basement",
-              "label": "Basement Parking",
+              "id": "parking",
+              "label": "Parking",
               "plans": [
                 {
                   "id": "basement-plan",
@@ -1419,18 +1419,18 @@
                     "Dedicated basement parking layout with ramp access and circulation aisles."
                   ],
                   "image": {
-                    "src": "golden-square-bharuch/basement_parking_layout.png"
+                    "src": "golden-square-bharuch/basement_parking_layout.webp"
                   }
                 }
               ]
             },
             {
-              "id": "ground",
-              "label": "Ground Floor",
+              "id": "retail",
+              "label": "Retail Floors",
               "plans": [
                 {
                   "id": "ground-plan",
-                  "label": "Ground Retail",
+                  "label": "Ground Floor",
                   "metrics": [
                     {
                       "label": "Total Shops",
@@ -1442,41 +1442,40 @@
                     "Dedicated floors for retail, food court, and multiplex."
                   ],
                   "image": {
-                    "src": "golden-square-bharuch/ground_floor_plan.png"
+                    "src": "golden-square-bharuch/ground_floor_plan.webp"
                   }
-                }
-              ]
-            },
-            {
-              "id": "first",
-              "label": "First Floor",
-              "plans": [
+                },
                 {
                   "id": "first-plan",
-                  "label": "First Floor Retail",
+                  "label": "First Floor",
                   "metrics": [],
                   "features": [
                     "High-speed elevators and wide corridors for smooth traffic flow."
                   ],
                   "image": {
-                    "src": "golden-square-bharuch/first_floor_plan.png"
+                    "src": "golden-square-bharuch/first_floor_plan.webp"
                   }
-                }
-              ]
-            },
-            {
-              "id": "second",
-              "label": "Second Floor",
-              "plans": [
+                },
                 {
                   "id": "second-plan",
-                  "label": "Second Floor Retail",
+                  "label": "Second Floor",
                   "metrics": [],
                   "features": [
                     "Continuous retail concourse linked by the central atrium."
                   ],
                   "image": {
-                    "src": "golden-square-bharuch/second_floor.png"
+                    "src": "golden-square-bharuch/second_floor.webp"
+                  }
+                },
+                {
+                  "id": "third-plan",
+                  "label": "Third Floor",
+                  "metrics": [],
+                  "features": [
+                    "Retail units arranged around dual passages with an open terrace."
+                  ],
+                  "image": {
+                    "src": "golden-square-bharuch/third_floor_plan.webp"
                   }
                 }
               ]
@@ -1499,7 +1498,7 @@
                     "Modular floor plates suit corporate and boutique tenants."
                   ],
                   "image": {
-                    "src": "golden-square-bharuch/4th_to_9th_floor_plan.png"
+                    "src": "golden-square-bharuch/4th_to_9th_floor_plan.webp"
                   }
                 }
               ]
