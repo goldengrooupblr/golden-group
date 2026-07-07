@@ -13,12 +13,6 @@ export const metadata = pageMetadata({
     "industrial estate Gujarat",
     "retail plaza Gujarat",
   ],
-  image: {
-    url: "/commercial-hero.webp",
-    width: 2560,
-    height: 2620,
-    alt: "Golden Group India commercial and industrial projects in Gujarat",
-  },
 });
 
 export default function CommercialIndustrialLayout({ children }: { children: React.ReactNode }) {

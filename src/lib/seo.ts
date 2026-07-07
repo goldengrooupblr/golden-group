@@ -9,9 +9,9 @@ import { SITE_URL } from "@/lib/site";
 export const SITE_NAME = "Golden Group India";
 
 export const DEFAULT_OG_IMAGE = {
-  url: "/residential-hero.jpg",
-  width: 2048,
-  height: 2048,
+  url: "/og.jpg",
+  width: 1200,
+  height: 630,
   alt: "Golden Group India — residential and commercial real estate in Gujarat",
 };
 

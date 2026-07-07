@@ -14,12 +14,6 @@ export const metadata = pageMetadata({
     "bungalows Ankleshwar",
     "residential projects Gujarat",
   ],
-  image: {
-    url: "/residential-hero.jpg",
-    width: 2048,
-    height: 2048,
-    alt: "Golden Group India residential projects in Gujarat",
-  },
 });
 
 export default function ResidentialLayout({ children }: { children: React.ReactNode }) {
