@@ -264,7 +264,7 @@ function StatsGallery() {
             className="object-cover"
             style={{
               opacity: i === index ? 1 : 0,
-              objectPosition: i === 0 ? "top" : "center",
+              objectPosition: i < 3 ? "top" : "center",
               transition: `opacity 800ms ${EASE}`,
             }}
             containerClassName="absolute inset-0"
