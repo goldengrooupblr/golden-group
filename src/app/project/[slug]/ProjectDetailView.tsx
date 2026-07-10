@@ -7,7 +7,7 @@ import { EnquiryModal } from "@/components/EnquiryModal";
 import { MinimalMap } from "@/components/MinimalMap";
 import { RevealImage } from "@/components/RevealImage";
 import { setProjectTransition } from "@/lib/projectTransition";
-import { FULL_BLEED_HERO_SLUGS } from "@/lib/heroStyle";
+import { FULL_BLEED_HERO_SLUGS, HERO_MOBILE_OBJECT_POSITION } from "@/lib/heroStyle";
 import { SiteFooter } from "@/components/SiteFooter";
 import {
   ArrowUpRight,
@@ -153,7 +153,7 @@ function Hero({
             quality={90}
             sizes="100vw"
             onLoad={fromProjects ? () => setProjectTransition(null) : undefined}
-            className="object-cover object-top"
+            className={`object-cover ${HERO_MOBILE_OBJECT_POSITION[project.slug] ?? "object-top"}`}
           />
         </div>
       ) : (
@@ -639,7 +639,7 @@ function Overview({
               {detail.intro.headline}
             </h2>
           </Reveal>
-          {project.type === "residential" && detail.intro.brochureUrl ? (
+          {detail.intro.brochureUrl ? (
             <Reveal delay={150} className="mt-8">
               <a
                 href={detail.intro.brochureUrl}

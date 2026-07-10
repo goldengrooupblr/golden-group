@@ -28,7 +28,11 @@ const socials = [
   { href: `mailto:${CONTACT_EMAIL}`, label: "Email" },
 ];
 
-export function SiteFooter() {
+export function SiteFooter({
+  hideContactDetails = false,
+}: {
+  hideContactDetails?: boolean;
+} = {}) {
   return (
     <div className="flex flex-col md:h-[100dvh] md:min-h-[640px]">
       <footer className="relative grid grid-cols-1 border-t border-[#464646] bg-black md:flex-1 md:min-h-0 md:grid-cols-2">
@@ -92,24 +96,26 @@ export function SiteFooter() {
               height={218}
               className="hidden h-[180px] w-auto md:block md:h-[200px]"
             />
-            <div className="flex w-full flex-col gap-6 md:w-1/2 md:max-w-none">
-              <div className="flex flex-col gap-2 pb-6 md:pb-0">
-                <p className="hidden text-base leading-[1.5] text-white md:block">
-                  {OFFICE_ADDRESS}
-                </p>
-                <div className="flex flex-col text-base leading-[1.5] text-white/55">
-                  <a
-                    href={`mailto:${CONTACT_EMAIL}`}
-                    className="hover:text-white"
-                  >
-                    {CONTACT_EMAIL}
-                  </a>
-                  <a href={`tel:${PHONE_TEL}`} className="hover:text-white">
-                    {PHONE_DISPLAY}
-                  </a>
+            {hideContactDetails ? null : (
+              <div className="flex w-full flex-col gap-6 md:w-1/2 md:max-w-none">
+                <div className="flex flex-col gap-2 pb-6 md:pb-0">
+                  <p className="hidden text-base leading-[1.5] text-white md:block">
+                    {OFFICE_ADDRESS}
+                  </p>
+                  <div className="flex flex-col text-base leading-[1.5] text-white/55">
+                    <a
+                      href={`mailto:${CONTACT_EMAIL}`}
+                      className="hover:text-white"
+                    >
+                      {CONTACT_EMAIL}
+                    </a>
+                    <a href={`tel:${PHONE_TEL}`} className="hover:text-white">
+                      {PHONE_DISPLAY}
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
           <div className="flex w-full flex-col gap-6 text-sm text-white/55 sm:flex-row sm:items-center sm:justify-between">
             <span className="flex w-full items-center justify-between sm:block sm:w-auto">

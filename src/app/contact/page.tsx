@@ -20,13 +20,13 @@ export default function ContactPage() {
   return (
     <main className="relative w-full bg-black text-white">
       <ContactSection />
-      <SiteFooter />
+      <SiteFooter hideContactDetails />
     </main>
   );
 }
 
 const TABS = [
-  { id: "inquire", label: "Inquire" },
+  { id: "inquire", label: "Get in Touch" },
   { id: "careers", label: "Careers" },
 ] as const;
 
@@ -34,6 +34,8 @@ type TabId = (typeof TABS)[number]["id"];
 
 function ContactSection() {
   const [tab, setTab] = useState<TabId>("inquire");
+  // The email card mirrors where the enquiry API routes the active form.
+  const email = tab === "careers" ? CAREERS_EMAIL : SALES_EMAIL;
 
   const onTabKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
@@ -44,43 +46,70 @@ function ContactSection() {
   };
 
   return (
-    <section className="relative w-full">
+    <section className="relative w-full md:grid md:grid-cols-2">
+      {/* Left: page title. The grid row stretches this column to match the
+          info + form column's height, so the divider runs the full length. */}
       <div className="flex items-start px-[30px] pb-12 pt-[120px] md:pt-[140px]">
         <h1 className="text-[40px] font-normal leading-[1.1] tracking-tight text-white md:text-[52px]">
           Contact
         </h1>
       </div>
 
-      {/* Mobile: the two forms share the viewport behind tabs. */}
-      <div className="md:hidden">
-        <div className="mx-auto w-full max-w-[760px] px-[30px]">
+      {/* Right: contact info, then the tabbed forms. On mobile the form
+          leads, followed by Email/Phone/Location/Instagram (`order` handles
+          the reflow so nothing is duplicated in the DOM). This wrapper
+          carries the single divider against the left column; individual
+          cards never repeat a left/right border, or it doubles the divider
+          or ends up flush against the screen edge. */}
+      <div className="grid grid-cols-1 md:grid-cols-2 md:border-l md:border-[#464646] md:pt-[140px]">
+        <InfoCard
+          className="order-5 -mt-px border-l-0 border-r-0 md:order-1 md:col-span-2 md:mt-0"
+          label="Location"
+          value={<span className="block">{OFFICE_ADDRESS}</span>}
+          action={{ kind: "copy", text: OFFICE_ADDRESS, verb: "Address" }}
+        />
+        <InfoCard
+          className="order-6 -mt-px border-l-0 border-r-0 md:order-2 md:border-r"
+          label="Instagram"
+          value="@goldengroupofficial"
+          action={{ kind: "open", href: INSTAGRAM_URL, verb: "Instagram" }}
+        />
+        <InfoCard
+          className="order-4 -mt-px border-l-0 border-r-0 md:order-2 md:border-l md:-ml-px"
+          label="Phone"
+          value={PHONE_DISPLAY}
+          action={{ kind: "call", href: `tel:${PHONE_TEL}`, verb: "Phone" }}
+        />
+
+        {/* Tabs: only the active form is mounted behind them. */}
+        <div className="order-1 border-t border-[#464646] px-[30px] pt-12 md:order-3 md:col-span-2 md:-mt-px">
           <div
             role="tablist"
             aria-label="Contact forms"
             className="flex w-full border border-[#464646]"
           >
             {TABS.map((t) => {
-            const active = t.id === tab;
-            return (
-              <button
-                key={t.id}
-                type="button"
-                role="tab"
-                id={`tab-${t.id}`}
-                aria-selected={active}
-                aria-controls={`panel-${t.id}`}
-                tabIndex={active ? 0 : -1}
-                onClick={() => setTab(t.id)}
-                onKeyDown={onTabKeyDown}
-                className={`-ml-px h-[56px] flex-1 border-l border-[#464646] px-3 text-center text-[13px] uppercase tracking-[0.08em] transition-colors duration-300 first:ml-0 first:border-l-0 ${
-                  active
-                    ? "z-10 bg-white text-black"
-                    : "bg-transparent text-white/80 hover:bg-white/5"
-                }`}
-              >
-                {t.label}
-              </button>
-            );
+              const active = t.id === tab;
+              return (
+                <button
+                  key={t.id}
+                  type="button"
+                  role="tab"
+                  id={`tab-${t.id}`}
+                  aria-selected={active}
+                  aria-controls={`panel-${t.id}`}
+                  tabIndex={active ? 0 : -1}
+                  onClick={() => setTab(t.id)}
+                  onKeyDown={onTabKeyDown}
+                  className={`-ml-px h-[56px] flex-1 border-l border-[#464646] px-3 text-center text-[13px] uppercase tracking-[0.08em] transition-colors duration-300 first:ml-0 first:border-l-0 ${
+                    active
+                      ? "z-10 bg-white text-black"
+                      : "bg-transparent text-white/80 hover:bg-white/5"
+                  }`}
+                >
+                  {t.label}
+                </button>
+              );
             })}
           </div>
         </div>
@@ -89,71 +118,19 @@ function ContactSection() {
           role="tabpanel"
           id={`panel-${tab}`}
           aria-labelledby={`tab-${tab}`}
-          className="border-b border-[#464646]"
+          className="order-2 border-b border-[#464646] md:order-4 md:col-span-2"
         >
-          <div className="mx-auto w-full max-w-[760px]">
-            {tab === "inquire" ? <ContactForm /> : <CareersForm />}
-          </div>
+          {tab === "inquire" ? <ContactForm /> : <CareersForm />}
         </div>
-      </div>
 
-      {/* Desktop: no tabs — Get in touch on top, Careers below it. */}
-      <div className="hidden md:block">
-        <div className="border-b border-[#464646]">
-          <div className="mx-auto w-full max-w-[760px]">
-            <ContactForm />
-          </div>
-        </div>
-        <div className="border-b border-[#464646]">
-          <div className="mx-auto w-full max-w-[760px]">
-            <CareersForm />
-          </div>
-        </div>
+        <InfoCard
+          className="order-3 -mt-px border-l-0 border-r-0 md:order-5 md:col-span-2"
+          label="Email"
+          value={email}
+          action={{ kind: "copy", text: email, verb: "Email" }}
+        />
       </div>
-
-      <InfoGrid tab={tab} />
     </section>
-  );
-}
-
-function InfoGrid({ tab }: { tab: TabId }) {
-  // The email card mirrors where the enquiry API routes the active form.
-  const email = tab === "careers" ? CAREERS_EMAIL : SALES_EMAIL;
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-      <InfoCard
-        className="-mt-px border-x-0 md:-ml-px md:border-x"
-        label="Phone"
-        value={PHONE_DISPLAY}
-        action={{ kind: "call", href: `tel:${PHONE_TEL}`, verb: "Phone" }}
-      />
-      <InfoCard
-        className="-mt-px border-x-0 md:-ml-px md:border-x"
-        label="Email"
-        value={email}
-        action={{ kind: "copy", text: email, verb: "Email" }}
-      />
-      <InfoCard
-        className="-mt-px border-x-0 md:-ml-px md:border-x"
-        label="Instagram"
-        value="@goldengroupofficial"
-        action={{
-          kind: "open",
-          href: INSTAGRAM_URL,
-          verb: "Instagram",
-        }}
-      />
-      <InfoCard
-        className="-mt-px border-x-0 md:-ml-px md:border-x"
-        label="Location"
-        value={<span className="block">{OFFICE_ADDRESS}</span>}
-        action={{
-          kind: "copy",
-          text: OFFICE_ADDRESS,
-          verb: "Address",
-        }}
-      />
-    </div>
   );
 }
 
